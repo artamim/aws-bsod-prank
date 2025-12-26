@@ -1,25 +1,6 @@
-data "aws_subnets" "asg" {
-  filter {
-    name   = "vpc-id"
-    values = [data.aws_vpc.selected.id]
-  }
-
-  filter {
-    name   = "availability-zone"
-    values = var.asg_availability_zones
-  }
-
-  # Optional: filter for private subnets (recommended for instances behind ALB)
-  # Uncomment if your subnets have a tag distinguishing private/public
-  # filter {
-  #   name   = "tag:Tier"
-  #   values = ["private"]
-  # }
-}
-
 resource "aws_autoscaling_group" "bsod" {
-  name                = "BSOD-ASG"
-  vpc_zone_identifier = data.aws_subnets.asg.ids # Subnets in ap-south-1b and ap-south-1c (or whatever you pass)
+  name                = var.aws_asg_name
+  vpc_zone_identifier = data.aws_subnets.asg.ids
 
   desired_capacity = 2
   min_size         = 2
@@ -43,7 +24,7 @@ resource "aws_autoscaling_group" "bsod" {
 
 # Target Tracking Scaling Policy - CPU Utilization
 resource "aws_autoscaling_policy" "cpu_tracking" {
-  name                   = "BSOD-CPU-Target-Tracking"
+  name                   = var.asg_target_tracking_name
   autoscaling_group_name = aws_autoscaling_group.bsod.name
   policy_type            = "TargetTrackingScaling"
 

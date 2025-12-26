@@ -2,7 +2,7 @@
 resource "aws_security_group" "lb" {
   name        = var.lb_sg_name
   description = "Allow HTTP/HTTPS inbound for Load Balancer"
-  vpc_id      = data.aws_vpc.selected.id
+  vpc_id          = aws_vpc.my_vpc.id
 
   ingress {
     description = "HTTP from anywhere"
@@ -29,7 +29,7 @@ resource "aws_security_group" "lb" {
 resource "aws_security_group" "next_SG" {
   name        = var.instance_sg_name
   description = "Allow traffic from Load Balancer on port 3000"
-  vpc_id      = data.aws_vpc.selected.id
+  vpc_id          = aws_vpc.my_vpc.id
 
   ingress {
     description     = "App port from Load Balancer"
@@ -56,7 +56,7 @@ resource "aws_security_group" "next_SG" {
 resource "aws_security_group" "rds_sg" {
   name        = var.db_sg_name
   description = "Security group for BSOD PostgreSQL RDS instance"
-  vpc_id      = data.aws_vpc.selected.id # FIX: Use same VPC as others (not .default)
+  vpc_id          = aws_vpc.my_vpc.id
 
   ingress {
     description     = "PostgreSQL from Next.js instances only"

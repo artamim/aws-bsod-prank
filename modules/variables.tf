@@ -1,9 +1,3 @@
-variable "vpc_name" {
-  description = "Name tag of the VPC to use (e.g., 'default' or 'BSOD-vpc')"
-  type        = string
-  default     = "BSOD-vpc" # Changed to match your setup
-}
-
 variable "lb_sg_name" {
   description = "Name (and tag Name) of the Load Balancer security group"
   type        = string
@@ -121,16 +115,20 @@ variable "tags" {
   }
 }
 
-variable "alb_availability_zones" {
-  description = "List of AZs for the ALB subnets"
+variable "bsod_availability_zones" {
+  description = "List of Availability Zones to create subnets in"
   type        = list(string)
-  default     = ["ap-south-1b", "ap-south-1c"]
+
+  validation {
+    condition     = length(var.bsod_availability_zones) >= 2
+    error_message = "At least 2 Availability Zones should be specified for high availability."
+  }
 }
 
-variable "asg_availability_zones" {
-  description = "List of AZs for the ASG subnets"
-  type        = list(string)
-  default     = ["ap-south-1b", "ap-south-1c"]
+variable "vpc_name" {
+  description = "Name tag for the VPC and base for IGW"
+  type        = string
+  default     = "my-custom-vpc"  # Optional default, can be overridden
 }
 
 variable "db_identifier" {
@@ -173,4 +171,16 @@ variable "ec2_instance_profile_name" {
   description = "Name of the IAM instance profile"
   type        = string
   default     = "AWSEC2SecretsAndRDSPostgresReadOnlyProfile"
+}
+
+variable "aws_asg_name" {
+  description = "Name of the Auto Scaling Group"
+  type        = string
+  default     = "my_auto_scaling_group"
+}
+
+variable "asg_target_tracking_name" {
+  description = "Name of the Auto Scaling Target Tracking"
+  type        = string
+  default     = "my_asg_target_tracking"
 }
