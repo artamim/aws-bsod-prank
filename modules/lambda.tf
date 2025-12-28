@@ -38,8 +38,8 @@ resource "aws_iam_role_policy" "lambda_policy" {
         Resource = "arn:aws:logs:*:*:*"
       },
       {
-        Action = "sns:Publish"
-        Effect = "Allow"
+        Action   = "sns:Publish"
+        Effect   = "Allow"
         Resource = aws_sns_topic.asg_notifications.arn
       }
     ]
@@ -47,11 +47,11 @@ resource "aws_iam_role_policy" "lambda_policy" {
 }
 
 resource "aws_lambda_function" "asg_notifier" {
-  filename      = data.archive_file.lambda_zip.output_path
-  function_name = "BSOD-ASG-Notifier"
-  role          = aws_iam_role.lambda_role.arn
-  handler       = "lambda_function.lambda_handler"
-  runtime       = "python3.12"
+  filename         = data.archive_file.lambda_zip.output_path
+  function_name    = "BSOD-ASG-Notifier"
+  role             = aws_iam_role.lambda_role.arn
+  handler          = "lambda_function.lambda_handler"
+  runtime          = "python3.12"
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 
   environment {

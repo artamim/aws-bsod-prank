@@ -15,5 +15,14 @@ resource "aws_lb_target_group" "main" {
     matcher             = var.matcher
   }
 
+  dynamic "stickiness" {
+    for_each = var.enable_stickiness ? [1] : []
+    content {
+      type            = "lb_cookie"
+      cookie_duration = 86400
+      enabled         = true
+    }
+  }
+
   tags = var.tags
 }

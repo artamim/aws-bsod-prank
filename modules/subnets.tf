@@ -51,7 +51,7 @@ resource "aws_eip" "nat" {
     Name = "${var.vpc_name}-NAT-EIP-${var.bsod_availability_zones[count.index]}"
   }
 
-  depends_on = [aws_internet_gateway.igw]  # Ensures IGW exists for EIP allocation
+  depends_on = [aws_internet_gateway.igw] # Ensures IGW exists for EIP allocation
 }
 
 # NAT Gateway - one per AZ, placed in the matching public subnet

@@ -128,7 +128,7 @@ variable "bsod_availability_zones" {
 variable "vpc_name" {
   description = "Name tag for the VPC and base for IGW"
   type        = string
-  default     = "my-custom-vpc"  # Optional default, can be overridden
+  default     = "my-custom-vpc" # Optional default, can be overridden
 }
 
 variable "db_identifier" {
@@ -183,4 +183,34 @@ variable "asg_target_tracking_name" {
   description = "Name of the Auto Scaling Target Tracking"
   type        = string
   default     = "my_asg_target_tracking"
+}
+
+variable "enable_bastion" {
+  description = "Set to true to create a bastion host in a public subnet"
+  type        = bool
+  default     = false
+}
+
+variable "bastion_key_name" {
+  description = "Name of an existing EC2 Key Pair to enable SSH access to the bastion"
+  type        = string
+  default     = "default-bastion-key"
+}
+
+variable "bastion_ssh_cidr" {
+  description = "CIDR block allowed to SSH into the bastion (e.g., your IP/32). Restrict this for security!"
+  type        = string
+  default     = "0.0.0.0/0"
+}
+
+variable "bastion_instance_type" {
+  description = "EC2 instance type for the bastion host"
+  type        = string
+  default     = "t3.micro"
+}
+
+variable "enable_stickiness" {
+  description = "Enable duration-based sticky sessions on the target group"
+  type        = bool
+  default     = false
 }

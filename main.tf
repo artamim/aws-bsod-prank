@@ -35,4 +35,8 @@ module "web_app_1" {
   master_username           = "Tamim"
   initial_db_name           = "Test1"
   db_availability_zone      = "ap-south-1b"
+  enable_bastion            = true
+  bastion_key_name          = "BSOD-Bastion-Key" # Must exist in ap-south-1
+  # bastion_ssh_cidr   = "YOUR.IP.ADDRESS/32"     Strongly recommended
+  enable_stickiness          = true
 }
