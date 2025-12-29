@@ -80,6 +80,7 @@ The app runs on EC2 instances in private subnets, behind an ALB in public subnet
 - **Public Assets (`public/`)**: Static files like images, fonts, or styles for the BSOD simulation.
 - **Styling**: Uses SASS/SCSS for custom BSOD-themed styles (e.g., blue screen effects).
 - **Dependencies**: @prisma/client, next, react, react-dom, sass (see package.json for full list).
+- **Repo**: https://github.com/artamim/BSOD-Frontend
 
 ## Local Development:
 
