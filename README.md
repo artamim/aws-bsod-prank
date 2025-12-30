@@ -218,5 +218,6 @@ jobs:
 This is a harmless prank for friends who enjoy tech humor. Do not use maliciously, in professional settings, or on vulnerable individuals. No data collection or malware—purely client-side JS prank. Use responsibly!
 AWS resources may incur costs; monitor your bill.
 Sticky Sessions is necessary for the Add page to work perfectly. Turning it off will change the private IP that can be viewed on the homepage. It can be useful to view the effectiveness of the ALB.
+For now, dont access the website in https. Copy the ALB url and place "http://" before the url in the browser.
 
 ## Have Fun Pranking Your Friends!!
